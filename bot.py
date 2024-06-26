@@ -1,7 +1,7 @@
 import logging
 import db
 
-from telegram import ForceReply, Update
+from telegram import ForceReply, Update, User
 from telegram.ext import Application, CommandHandler, ContextTypes, MessageHandler, filters
 
 import datetime
@@ -107,6 +107,14 @@ def create_db() -> None:
         );
     """
     db.execute_query(my_db, buf)
+    
+def db_add_user(user_id: User.id, token: str):
+    global my_db
+    buf = f"""
+        INSERT INTO users (id, token) VALUES ({user_id}, {token});
+    """
+    db.execute_query(my_db, buf)
+    
 
 def main() -> None:
     global my_db
