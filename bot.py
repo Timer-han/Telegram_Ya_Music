@@ -97,13 +97,8 @@ def func() -> tuple[str, str]:
             return i["direct_link"], arr[3]
 
 
-def main() -> None:
+def create_db() -> None:
     global my_db
-    """Start the bot."""
-    # Create the Application and pass it your bot's token.
-    application = Application.builder().token("7066146595:AAGEIuIPj9pRUiNtH2_hM0jEOeT5AZv5WfQ").build()
-    
-    # Create DB users where id - TelegramID, token - user's token
     my_db = db.create_connection("./users.db")
     buf = """
         CREATE TABLE IF NOT EXISTS users (
@@ -112,6 +107,15 @@ def main() -> None:
         );
     """
     db.execute_query(my_db, buf)
+
+def main() -> None:
+    global my_db
+    """Start the bot."""
+    # Create the Application and pass it your bot's token.
+    application = Application.builder().token("7066146595:AAGEIuIPj9pRUiNtH2_hM0jEOeT5AZv5WfQ").build()
+    
+    # Create DB users where id - TelegramID, token - user's token
+    # create_db()
     
     
     # on different commands - answer in Telegram
